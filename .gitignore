@@ -19,3 +19,9 @@
 
 # Go workspace file
 go.work
+
+# Score
+.score-compose/
+compose.yaml
+.score-k8s/
+manifests.yaml
