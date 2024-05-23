@@ -29,28 +29,39 @@ Use <https://docs.asciinema.org/>.
 Preparation:
 
 ```
+$ docker compose down -v
+$ kubectl --context kind-kind delete -f manifests.yaml
 $ rm -rfv .score-compose .score-k8s compose.yaml manifests.yaml
 $ docker pull ghcr.io/score-spec/sample-app-gif:main
 
-$ kind create cluster
-$ kubectl use-context kind-kind
-$ kubectl --context kind-kind apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.0.0/standard-install.yam
-$ helm --kube-context kind-kind install ngf oci://ghcr.io/nginxinc/charts/nginx-gateway-fabric --create-namespace -n nginx-gateway --set service.type=ClusterIP
+$ kind delete cluster
+$ ./setup-kind.sh
 ```
 
 Instructions to record:
 
+**NOTE**: for best results you should manually type as many of these as you can
+
 ```
+$ asciinema rec score-demo.cast --overwrite -c sh
+
+$ cat score.yaml
 $ score-compose init
 $ score-compose generate score.yaml
-$ docker compose up -d 
-$ curl http://$(score-compose resources get-outputs 'dns.default#sample.dns' --format '{{ .host }}'):8080/ -i
-$ docker logs sample-app-gif-sample-main-1
-$ docker compose down -v
+$ docker compose up -d </dev/null | cat
+$ export host=$(score-compose resources get-outputs 'dns.default#sample.dns' --format '{{ .host }}') && printenv host
+$ curl http://${host}:8080/ -i
+$ docker compose logs sample-main
+$ docker compose down -v </dev/null | cat
 
 $ score-k8s init
 $ score-k8s generate score.yaml
 $ kubectl apply -f manifests.yaml
-$ kubectl wait deployments/sample --for=condition=Ready
-$ curl http://$(score-compose resources get-outputs 'dns.default#sample.dns' --format '{{ .host }}')
+$ kubectl wait deployments/sample --for=condition=Available
+$ export host=$(score-k8s resources get-outputs 'dns.default#sample.dns' --format '{{ .host }}') && printenv host
+$ curl http://${host}
+
+$ kubectl delete -f manifests.yaml
 ```
+
+Then manually clean up the cast file and set the size at the top to 80 x 24 (standard terminal size).
