@@ -9,6 +9,19 @@ The sample app used for the gif and video embedded in the docs. The purpose is f
 
 All with as few lines of code as possible. We're going to for simple and short rather than _correct_.
 
+This starts a simple server connected to a postgres database, and then on each request returns something like:
+
+```
+HTTP/1.1 200 OK
+Server: nginx/1.25.4
+Date: Thu, 23 May 2024 16:39:34 GMT
+Content-Type: text/plain; charset=utf-8
+Content-Length: 127
+Connection: keep-alive
+
+SQL VERSION: PostgreSQL 16.1 on aarch64-unknown-linux-musl, compiled by gcc (Alpine 13.2.1_git20231014) 13.2.1 20231014, 64-bit%
+```
+
 ## How to record the sample gif
 
 Use <https://docs.asciinema.org/>.
