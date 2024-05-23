@@ -65,3 +65,5 @@ $ kubectl delete -f manifests.yaml
 ```
 
 Then manually clean up the cast file and set the size at the top to 80 x 24 (standard terminal size).
+
+To adjust the timings and highlight the prompt segment, install and run <https://github.com/astromechza/asciinema-adjuster>.
