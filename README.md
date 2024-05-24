@@ -45,14 +45,14 @@ Instructions to record:
 ```
 $ asciinema rec score-demo.cast --overwrite -c sh
 
-$ cat score.yaml
+$ less core.yaml
 $ score-compose init
 $ score-compose generate score.yaml
 $ docker compose up -d </dev/null | cat
 $ export host=$(score-compose resources get-outputs 'dns.default#sample.dns' --format '{{ .host }}') && printenv host
 $ curl http://${host}:8080/ -i
 $ docker compose logs sample-main
-$ docker compose down -v </dev/null | cat
+$ clear
 
 $ score-k8s init
 $ score-k8s generate score.yaml
@@ -66,4 +66,8 @@ $ kubectl delete -f manifests.yaml
 
 Then manually clean up the cast file and set the size at the top to 80 x 24 (standard terminal size).
 
-To adjust the timings and highlight the prompt segment, install and run <https://github.com/astromechza/asciinema-adjuster>.
+To adjust the timings and highlight the prompt segment, install and run <https://github.com/astromechza/asciinema-adjuster>:
+
+```
+$ asciinema-adjuster score-demo.cast 'sh-3.2$ ' > score-demo.modified.cast
+```
