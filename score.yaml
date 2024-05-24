@@ -3,7 +3,7 @@ metadata:
   name: sample
 containers:
   main:
-    image: ghcr.io/score-spec/sample-app-gif:main
+    image: ghcr.io/score-spec/sample-app-gif:sha-2533037
     variables:
       PG_CONNECTION_STRING: "postgresql://${resources.db.username}:${resources.db.password}@${resources.db.host}:${resources.db.port}/${resources.db.database}?sslmode=disable"
 service:

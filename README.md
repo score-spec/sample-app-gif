@@ -32,7 +32,7 @@ Preparation:
 $ docker compose down -v
 $ kubectl --context kind-kind delete -f manifests.yaml
 $ rm -rfv .score-compose .score-k8s compose.yaml manifests.yaml
-$ docker pull ghcr.io/score-spec/sample-app-gif:main
+$ docker pull ghcr.io/score-spec/sample-app-gif:sha-2533037
 
 $ kind delete cluster
 $ ./setup-kind.sh
