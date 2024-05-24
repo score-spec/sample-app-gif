@@ -45,12 +45,11 @@ Instructions to record:
 ```
 $ asciinema rec score-demo.cast --overwrite -c sh
 
-$ less core.yaml
+$ cat score.yaml
 $ score-compose init
 $ score-compose generate score.yaml
 $ docker compose up -d </dev/null | cat
-$ export host=$(score-compose resources get-outputs 'dns.default#sample.dns' --format '{{ .host }}') && printenv host
-$ curl http://${host}:8080/ -i
+$ curl -i http://${host}:8080
 $ docker compose logs sample-main
 $ clear
 
@@ -59,7 +58,7 @@ $ score-k8s generate score.yaml
 $ kubectl apply -f manifests.yaml
 $ kubectl wait deployments/sample --for=condition=Available
 $ export host=$(score-k8s resources get-outputs 'dns.default#sample.dns' --format '{{ .host }}') && printenv host
-$ curl http://${host}
+$ curl -i http://${host}
 
 $ kubectl delete -f manifests.yaml
 ```

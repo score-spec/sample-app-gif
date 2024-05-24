@@ -1,18 +1,15 @@
 apiVersion: score.dev/v1b1
 metadata:
   name: sample
-
 containers:
   main:
     image: ghcr.io/score-spec/sample-app-gif:main
     variables:
       PG_CONNECTION_STRING: "postgresql://${resources.db.username}:${resources.db.password}@${resources.db.host}:${resources.db.port}/${resources.db.database}?sslmode=disable"
-
 service:
   ports:
     web:
       port: 8080
-
 resources:
   db:
     type: postgres

@@ -49,10 +49,10 @@ func main() {
 		var versionOutput string
 		if err := conn.QueryRowContext(request.Context(), "SELECT version()").Scan(&versionOutput); err != nil {
 			writer.WriteHeader(http.StatusInternalServerError)
-			_, _ = fmt.Fprintf(writer, "Failed to get sql version: %v", err)
+			_, _ = fmt.Fprintf(writer, "Failed to get sql version: %v\n", err)
 			log.Printf("%s %s %s status=500: %v\n", request.Host, request.Method, request.RequestURI, err)
 		} else {
-			_, _ = fmt.Fprintf(writer, "SQL VERSION: %s", versionOutput)
+			_, _ = fmt.Fprintf(writer, "SQL VERSION: %s\n", versionOutput)
 			log.Printf("%s %s %s status=200\n", request.Host, request.Method, request.RequestURI)
 		}
 	})
