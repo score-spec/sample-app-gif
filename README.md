@@ -70,10 +70,23 @@ $ curl -i http://${host}
 $ kubectl delete -f manifests.yaml
 ```
 
-Then manually clean up the cast file and set the size at the top to 80 x 24 (standard terminal size).
-
-To adjust the timings and highlight the prompt segment, install and run <https://github.com/astromechza/asciinema-adjuster>:
+Then manually clean up the cast file as needed to remove any mistakes or bad lines. To adjust the timings and highlight the prompt segment, install and run <https://github.com/astromechza/asciinema-adjuster>:
 
 ```
 $ asciinema-adjuster score-demo.cast 'sh-3.2$ ' > score-demo.modified.cast
+```
+
+Then run `agg` to render the gif. `agg` can be installed from <https://docs.asciinema.org/manual/agg/>.
+
+```
+agg --theme 141926,ffffff,141926,f92672,0cd6ae,f4bf75,638aff,8667fd,a1efe4,ffffff,75715e,f92672,0cd6ae,f4bf75,638aff,8667fd,a1efe4,ffffff \
+    --font-size 20 --font-family 'Fira Code' --font-dir ./Fira_Code/ \
+    --cols 80 --rows 20 \
+    score-demo.modified.cast score-demo.gif
+```
+
+To generate an optimised gif about half the size, install `gifsicle` and then run:
+
+```
+gifsicle --lossy=80 -k 64 -O2 -Okeep-empty score-demo.gif -o score-demo-lossy.gif
 ```
